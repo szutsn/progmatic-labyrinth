@@ -5,6 +5,9 @@
  */
 
 import com.progmatic.labyrinthproject.Coordinate;
+import com.progmatic.labyrinthproject.LabyrinthImpl;
+import com.progmatic.labyrinthproject.Player.RandomPlayer;
+import com.progmatic.labyrinthproject.Player.WallFollowerPlayer;
 import com.progmatic.labyrinthproject.enums.CellType;
 import com.progmatic.labyrinthproject.enums.Direction;
 import com.progmatic.labyrinthproject.exceptions.CellException;
@@ -128,25 +131,25 @@ public class LabyrinthTest {
             {"#", " ", " ", " ", "#"},
             {"#", "#", "#", "#", "#"}};
         Labyrinth l = fromString(lArr);
-        assertEquals(new Coordinate(0, 1), l.getPlayerPosition());
+        assertEquals(new Coordinate(0, 1), l.getCoordinate());
         l.movePlayer(Direction.EAST);
-        assertEquals(new Coordinate(1, 1), l.getPlayerPosition());
+        assertEquals(new Coordinate(1, 1), l.getCoordinate());
         l.movePlayer(Direction.SOUTH);
-        assertEquals(new Coordinate(1, 2), l.getPlayerPosition());
+        assertEquals(new Coordinate(1, 2), l.getCoordinate());
         l.movePlayer(Direction.SOUTH);
-        assertEquals(new Coordinate(1, 3), l.getPlayerPosition());
+        assertEquals(new Coordinate(1, 3), l.getCoordinate());
         l.movePlayer(Direction.EAST);
-        assertEquals(new Coordinate(2, 3), l.getPlayerPosition());
+        assertEquals(new Coordinate(2, 3), l.getCoordinate());
         l.movePlayer(Direction.EAST);
-        assertEquals(new Coordinate(3, 3), l.getPlayerPosition());
+        assertEquals(new Coordinate(3, 3), l.getCoordinate());
         l.movePlayer(Direction.WEST);
-        assertEquals(new Coordinate(2, 3), l.getPlayerPosition());
+        assertEquals(new Coordinate(2, 3), l.getCoordinate());
         l.movePlayer(Direction.EAST);
-        assertEquals(new Coordinate(3, 3), l.getPlayerPosition());
+        assertEquals(new Coordinate(3, 3), l.getCoordinate());
         l.movePlayer(Direction.NORTH);
-        assertEquals(new Coordinate(3, 2), l.getPlayerPosition());
+        assertEquals(new Coordinate(3, 2), l.getCoordinate());
         l.movePlayer(Direction.NORTH);
-        assertEquals(new Coordinate(3, 1), l.getPlayerPosition());
+        assertEquals(new Coordinate(3, 1), l.getCoordinate());
     }
 
     @Test
@@ -230,11 +233,11 @@ public class LabyrinthTest {
         Labyrinth l = getLabyrinthImpl();
         l.loadLabyrinthFile("labyrinth1.txt");
         assertSameLabyrinth(l, lSample);
-        assertEquals(new Coordinate(0, 1), l.getPlayerPosition());
+        assertEquals(new Coordinate(0, 1), l.getCoordinate());
         
         l = getLabyrinthImpl();
         l.loadLabyrinthFile("labyrinth2.txt");
-        assertEquals(new Coordinate(0, 1), l.getPlayerPosition());
+        assertEquals(new Coordinate(0, 1), l.getCoordinate());
     }
     
     @Test
@@ -252,7 +255,7 @@ public class LabyrinthTest {
             l.movePlayer( d );
         }
         assertEquals(true, l.hasPlayerFinished());
-        assertEquals(l.getCellType(l.getPlayerPosition()), CellType.END);
+        assertEquals(l.getCellType(l.getCoordinate()), CellType.END);
         
         Labyrinth l2 = getLabyrinthImpl();
         l2.loadLabyrinthFile("labyrinth2.txt");
@@ -261,7 +264,7 @@ public class LabyrinthTest {
             l2.movePlayer( d );
         }
         assertEquals(true, l2.hasPlayerFinished());
-        assertEquals(l2.getCellType(l2.getPlayerPosition()), CellType.END);
+        assertEquals(l2.getCellType(l2.getCoordinate()), CellType.END);
     }
     
     @Test
@@ -279,7 +282,7 @@ public class LabyrinthTest {
             l.movePlayer( d );
         }
         assertEquals(true, l.hasPlayerFinished());
-        assertEquals(l.getCellType(l.getPlayerPosition()), CellType.END);
+        assertEquals(l.getCellType(l.getCoordinate()), CellType.END);
         
         String[] files = {"labyrinth2.txt", "labyrinth3.txt"};
         for (String file : files) {
@@ -290,7 +293,7 @@ public class LabyrinthTest {
                 l.movePlayer( d );
             }
             assertEquals(true, l.hasPlayerFinished());
-            assertEquals(l.getCellType(l.getPlayerPosition()), CellType.END);
+            assertEquals(l.getCellType(l.getCoordinate()), CellType.END);
         }
     }
     
@@ -307,7 +310,7 @@ public class LabyrinthTest {
                 l.movePlayer( d );
             }
             assertEquals(true, l.hasPlayerFinished());
-            assertEquals(l.getCellType(l.getPlayerPosition()), CellType.END);
+            assertEquals(l.getCellType(l.getCoordinate()), CellType.END);
         }
     }
     
@@ -382,17 +385,17 @@ public class LabyrinthTest {
     
     // TODO
     private Labyrinth getLabyrinthImpl() {
-        return null;
+        return new LabyrinthImpl();
     }
     
     // TODO
     private Player getRandomPlayerImpl() {
-        return null;
+        return new RandomPlayer();
     }
     
     // TODO
     private Player getWallFollowerPlayerImpl() {
-        return null;
+        return new WallFollowerPlayer();
     }
     
     // TODO

@@ -62,7 +62,7 @@ public interface Labyrinth {
     /**
      * @return the Coordinate object with the player's current position.
      */
-    Coordinate getPlayerPosition();
+    Coordinate getCoordinate();
     
     /**
      * Determines if the player has arrived on the END cell.
